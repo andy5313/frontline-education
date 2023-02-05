@@ -1,6 +1,23 @@
-# Getting Started with Create React App
+React App that Displays Contributors for React's Github Repository!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+List view
+The list view retrieves and displays a list of contributors to the React repository
+For each contributor, includes their:
+- Username
+- Avatar
+- Number of contributions
+
+Clicking on a contributor in the list displays the detail view for that specific contributor!
+Detail view
+The detail view should retrieve and display additional details about the selected contributor. 
+Displays 
+- Username
+- Name
+- A larger version of their avatar
+- Location
+- Bio
+- Follower count
+- Following count
 
 ## Available Scripts
 
