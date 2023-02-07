@@ -1,4 +1,6 @@
-React App that Displays Contributors for React's Github Repository!
+React App that Displays React's Contributors and their Github Repository!
+
+The app is split into a list view that has a grid retrieved from React contributor's Github API and a detail view that displays the current selected contributor. You can click the button to learn more about the individual React contributor's repositoriees on Github as well. 
 
 List view
 The list view retrieves and displays a list of contributors to the React repository
@@ -8,8 +10,7 @@ For each contributor, includes their:
 - Number of contributions
 
 Clicking on a contributor in the list displays the detail view for that specific contributor!
-Detail view
-The detail view should retrieve and display additional details about the selected contributor. 
+
 Displays 
 - Username
 - Name
@@ -18,6 +19,11 @@ Displays
 - Bio
 - Follower count
 - Following count
+- Website link
+- Github link
+
+Clicking the "learn more" button will render a modal that pops up with a list of their repos and links to them.
+
 
 ## Available Scripts
 
