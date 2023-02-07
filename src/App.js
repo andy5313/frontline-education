@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Listview from "./components/listview";
 import Detailview from "./components/detailview";
 import styled from "styled-components";
+import Modal from "./components/modal";
 
 import { v4 as uuid_v4 } from "uuid";
 
@@ -34,7 +35,13 @@ const Grid = styled.div`
 `;
 
 const DetailDiv = styled.div`
-  width: 500px;
+  display: flex;
+  height: 90%;
+  background: #ffe7e7;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  padding-bottom: 1vw;
+  border-radius: 10px;
 `;
 
 function App() {
@@ -44,10 +51,12 @@ function App() {
   const [selectedUserDetail, setSelectedUserDetail] = useState(
     JSON.parse(localStorage.getItem("selectedUserDetail")) || {}
   );
+  const [selectedUserRepo, setSelectedUserRepo] = useState([]);
+
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (contributors.length === 0) {
-      console.log("fired");
       fetch("https://api.github.com/repos/facebook/react/contributors")
         .then((response) => response.json())
         .then((contributors) => {
@@ -65,8 +74,23 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log("selectedUSERdetail", selectedUserDetail);
-  }, [selectedUserDetail]);
+    setSelectedUserRepo([]);
+    if (showModal) {
+      fetch(`https://api.github.com/users/${selectedUserDetail.login}/repos`)
+        .then((response) => response.json())
+        .then((data) => {
+          setSelectedUserRepo(
+            data.map((repo) => {
+              return {
+                name: repo.name,
+                description: repo.description,
+                url: repo.html_url,
+              };
+            })
+          );
+        });
+    }
+  }, [showModal]);
 
   const fetchUserData = (username) => {
     fetch(`https://api.github.com/users/${username}`)
@@ -110,6 +134,15 @@ function App() {
       <HeadingDiv>
         <Heading>Top Contributors of React</Heading>
       </HeadingDiv>
+      {showModal && (
+        <Modal
+          toggleModal={() => setShowModal(!showModal)}
+          createdOn={selectedUserDetail.created_at}
+          updatedOn={selectedUserDetail.updated_at}
+          name={selectedUserDetail.name}
+          repoDetails={selectedUserRepo}
+        />
+      )}
       <AppDiv className="App">
         <Grid>{contributors && displayListview()}</Grid>
         <DetailDiv>
@@ -122,6 +155,7 @@ function App() {
             followerCount={selectedUserDetail.followers}
             websiteURL={selectedUserDetail.blog}
             githubURL={selectedUserDetail.html_url}
+            setShowModal={setShowModal}
           />
         </DetailDiv>
       </AppDiv>
