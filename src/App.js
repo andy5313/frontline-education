@@ -9,29 +9,36 @@ import { v4 as uuid_v4 } from "uuid";
 const AppDiv = styled.div`
   display: flex;
   justify-content: space-evenly;
-  gap: 20px;
+  gap: 3vw;
+  padding-bottom; 2vw;
 `;
 
 const Heading = styled.h1`
-  text-align: center;
   margin-block-start: 0;
   margin-block-end: 0;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   padding: 0.5em;
-  background-image: linear-gradient(to left, #ffe7e7, #b393d3);
+  padding-left: 8vw;
+  font-size: 2vw;
 `;
 
-const HeadingDiv = styled.div``;
+const HeadingDiv = styled.div`
+  display: flex;
+  align-items: center;
+  background-image: linear-gradient(to left, #ffe7e7, #b393d3);
+  gap: 1vw;
+`;
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  grid-gap: 10px;
-  padding-top: 10px;
+  grid-template-columns: repeat(auto-fill, 10vw);
+  grid-gap: 1vw;
+  padding-top: 2pvw;
   overflow-y: auto;
   height: 90vh;
   width: 60%;
+  padding: 1vw;
 `;
 
 const DetailDiv = styled.div`
@@ -44,6 +51,16 @@ const DetailDiv = styled.div`
   border-radius: 10px;
 `;
 
+const SearchInput = styled.input`
+  width: 30vw;
+  color: purple;
+  height: 3vw;
+  border: 0;
+  padding-left: 1vw;
+  margin: 1vw;
+  border-radius: 5px;
+`;
+
 function App() {
   const [contributors, setContributors] = useState(
     JSON.parse(localStorage.getItem("contributors")) || []
@@ -52,6 +69,8 @@ function App() {
     JSON.parse(localStorage.getItem("selectedUserDetail")) || {}
   );
   const [selectedUserRepo, setSelectedUserRepo] = useState([]);
+
+  const [search, setSearch] = useState("");
 
   const [showModal, setShowModal] = useState(false);
 
@@ -115,8 +134,12 @@ function App() {
     localStorage.setItem("selectedUserDetail", JSON.stringify(contributor));
   };
 
+  const filteredContributors = contributors.filter((user) =>
+    user.login.toLowerCase().includes(search.toLowerCase())
+  );
+
   const displayListview = () => {
-    return contributors.map((contributor) => {
+    return filteredContributors.map((contributor) => {
       return (
         <Listview
           key={uuid_v4()}
@@ -129,11 +152,21 @@ function App() {
     });
   };
 
+  // const searchContributors = (username) => {
+  //   setContributors()
+  // }
+
   return (
     <>
       <HeadingDiv>
+        <SearchInput
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search for a contributor..."
+        ></SearchInput>
         <Heading>Top Contributors of React</Heading>
       </HeadingDiv>
+
       {showModal && (
         <Modal
           toggleModal={() => setShowModal(!showModal)}
@@ -143,6 +176,7 @@ function App() {
           repoDetails={selectedUserRepo}
         />
       )}
+
       <AppDiv className="App">
         <Grid>{contributors && displayListview()}</Grid>
         <DetailDiv>

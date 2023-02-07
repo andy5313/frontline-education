@@ -32,7 +32,7 @@ const InfoSpan = styled.span`
 
 const WebsiteLink = styled.a`
   padding-left: 2vw;
-  font-size: 1.2vw;
+  font-size: 1.1vw;
 `;
 
 const Button = styled.button`

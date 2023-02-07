@@ -9,6 +9,10 @@ const ListDiv = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   background-color: #ffe7e7;
+  width: 10vw;
+  height: 15vw;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
 `;
 
 const Image = styled.img`
@@ -16,10 +20,16 @@ const Image = styled.img`
 `;
 
 const Text = styled.p`
-  font-size: 12px;
+  font-size: 1vw;
+  padding-bottom: 1vw;
 `;
 const UsernameText = styled.h3`
-  font-size: 13px;
+  font-size: 1vw;
+  font-weight: bold;
+  padding-top: 1vw;
+`;
+
+const BoldSpan = styled.span`
   font-weight: bold;
 `;
 
@@ -28,7 +38,9 @@ const Listview = ({ username, avatarURL, numContributions, handleClick }) => {
     <ListDiv onClick={handleClick}>
       <UsernameText>{username}</UsernameText>
       <Image src={avatarURL} alt="photo" />
-      <Text>Number of Contributions: {numContributions}</Text>
+      <Text>
+        Number of Contributions: <BoldSpan>{numContributions}</BoldSpan>
+      </Text>
     </ListDiv>
   );
 };
