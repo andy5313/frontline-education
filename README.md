@@ -1,9 +1,9 @@
 React App that Displays React's Contributors and their Github Repository!
 
-The app is split into a list view that has a grid retrieved from React contributor's Github API and a detail view that displays the current selected contributor. You can click the button to learn more about the individual React contributor's repositoriees on Github as well. 
+The app is split into a list view that has a grid retrieved from React contributor's Github API and a detail view that displays the current selected contributor. You can click the button to learn more about the individual React contributor's repositoriees on Github as well. The grid data persists on local storage.
 
 List view
-The list view retrieves and displays a list of contributors to the React repository
+The list view retrieves and displays a list of contributors to the React repository. There is a search functionality that displays contributor's usernamee that matches the search input.
 For each contributor, includes their:
 - Username
 - Avatar
